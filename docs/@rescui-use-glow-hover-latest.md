@@ -1,71 +1,76 @@
-# @rescui/use-glow-hover Documentation
+# @rescui/use-glow-hover
 
 ## Overview
-The `@rescui/use-glow-hover` is a React Hook that allows you to add a glowing hover effect to your React components. This package is useful for enhancing user interaction and visual aesthetics of your web application.
+
+The `@rescui/use-glow-hover` package is a React hook that applies a glowing hover effect to any React component. This package is useful for enhancing the user interface and user experience of your web application by providing a visually appealing hover effect.
 
 ## Installation
-You can install the package using npm or yarn:
 
-With npm:
+You can install the `@rescui/use-glow-hover` package using either npm or yarn:
+
+### npm
+
 ```bash
 npm install @rescui/use-glow-hover
 ```
 
-With yarn:
+### yarn
+
 ```bash
 yarn add @rescui/use-glow-hover
 ```
 
 ## Compatibility
-This package is specifically designed for React and is compatible with React version 16.8 and above. It requires Node.js version 10 or later. The package is browser-agnostic and should work in any environment where React is supported.
+
+This package is compatible with React and requires a React version of 16.8.0 or higher. It also requires a Node.js environment of version 10 or higher. The package supports all modern browsers.
 
 ## API Reference
-The `useGlowHover` hook takes in three parameters:
 
-| Function | Parameter | Type | Description |
-| --- | --- | --- | --- |
-| useGlowHover | ref | React.RefObject | The React ref to the element you want to apply the glow effect to. |
-|  | options | object | An optional object containing configuration options for the glow effect. |
-|  | options.color | string | The color of the glow effect. Default is 'white'. |
-|  | options.intensity | number | The intensity of the glow effect. Default is 1. |
+The main function provided by this package is `useGlowHover`.
 
-The `useGlowHover` hook does not return any value.
+| Function | Parameters | Type | Description | Return Type |
+|----------|------------|------|-------------|-------------|
+| useGlowHover | color | string | The color of the glow when the component is hovered over. | An array containing a ref and a style object |
 
 ## Usage Examples
 
-**Basic Example:**
+### Basic Example
 
 ```jsx
-import React, { useRef } from 'react';
+import React from 'react';
 import useGlowHover from '@rescui/use-glow-hover';
 
 function MyComponent() {
-  const ref = useRef();
-  useGlowHover(ref);
+  const [ref, style] = useGlowHover('blue');
 
-  return <div ref={ref}>Hover over me!</div>;
+  return <div ref={ref} style={style}>Hover over me!</div>;
 }
 ```
 
-In this basic example, we're applying the glow effect to a `div` element. The glow color will be white and the intensity will be 1, which are the default values.
+In this basic example, the `useGlowHover` hook is used to apply a blue glow hover effect to a `div` element.
 
-**Advanced Example:**
+### Advanced Example
 
 ```jsx
-import React, { useRef } from 'react';
+import React from 'react';
 import useGlowHover from '@rescui/use-glow-hover';
 
 function MyComponent() {
-  const ref = useRef();
-  useGlowHover(ref, { color: 'blue', intensity: 2 });
+  const [ref, style] = useGlowHover('red');
 
-  return <div ref={ref}>Hover over me!</div>;
+  return (
+    <div ref={ref} style={{...style, fontSize: '2em'}}>
+      Hover over me!
+    </div>
+  );
 }
 ```
 
-In this advanced example, we're applying a blue glow effect with an intensity of 2 to a `div` element.
+In this advanced example, the `useGlowHover` hook is used in combination with other styles. The `fontSize` property is added to the style object returned by `useGlowHover`.
 
 ## Additional Notes
-- The glow effect is applied using CSS filters, so it may not work in browsers that do not support CSS filters.
-- The intensity of the glow effect is controlled by the `blur` CSS filter. Higher intensity values will result in a larger blur radius.
-- The color of the glow effect is controlled by the `drop-shadow` CSS filter. You can use any CSS color value.
+
+- The color parameter passed to `useGlowHover` must be a valid CSS color.
+- The `useGlowHover` hook returns a ref and a style object. These must be applied to the same element for the hover effect to work.
+- The style object returned by `useGlowHover` can be combined with other styles, but be aware that any `boxShadow` property in your styles will be overridden by `useGlowHover`.
+- For performance considerations, avoid changing the color parameter frequently as it may cause unnecessary re-renders.

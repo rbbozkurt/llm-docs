@@ -1,80 +1,113 @@
-# `@rescui/use-glow-hover` Documentation
+# 🧠 LLM-Powered Markdown Doc Generator
 
-## Overview
-The `@rescui/use-glow-hover` is a npm package that provides a custom React hook to add a glowing hover effect to your React components. This package is useful for enhancing the user interface and user experience of your application by adding visually appealing hover effects to your components.
+🚀 LLM Docs is a TypeScript-based CLI tool that generates high-quality, production-ready Markdown documentation for any npm package using LLMs like OpenAI. It is modular, LLM-agnostic, and designed with best practices for automation, scaling, and future extensibility.
 
-## Installation
-You can install the package using npm or yarn.
+## 📌 Features
 
-With npm:
+✅ **Supports Any LangChain-Compatible LLM** – OpenAI, Anthropic, and more via dependency injection.
+
+✅ **Well-Structured Markdown Output** – With Overview, Installation, Compatibility, API Reference, and Examples.
+
+✅ **Timestamped Versioning** – Each generated doc is saved with a timestamp.
+
+✅ **Auto-Writes latest.md** – Always keeps a -latest.md copy for quick access.
+
+✅ **CLI Integration** – Accepts npm package names as command-line arguments.
+
+✅ **Extensible Architecture** – Easily add new output targets, formats, or models.
+
+## 📂 Project Structure
+
+```
+
+📦 llm-docs
+├── docs/                       # Output Markdown files
+├── src/
+│   ├── llm/
+│   │   ├── doc-generator.ts    # LLM interaction and prompt logic
+│   │   └── doc-writer.ts       # Markdown file writing with versioning
+│   └── index.ts                # CLI entry point
+├── .env.template               # API keys for your llms (DELETE .template extension)
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── README.md                   # This documentatio 
+```
+
+## 🛠️ Setup & Running
+
+### 🔴 Prerequisites
+
+- **Node.js 18+**
+- **npm**
+- **.env** 
+
+Example:
+```
+OPENAI_API_KEY=sk-...
+```
+
+### 🚀 Run the CLI Tool
+
+1️⃣ Clone the repository:
+
 ```bash
-npm install @rescui/use-glow-hover
+git clone https://github.com/rbbozkurt/llm-docs.git
+cd llm-docs
 ```
 
-With yarn:
+
+2️⃣ Install dependencies:
 ```bash
-yarn add @rescui/use-glow-hover
+npm install
 ```
 
-## Compatibility
-This package is specifically designed for React and is compatible with React version 16.8 and above due to its use of hooks. 
-
-The package does not specify any particular browser support or Node version requirements. However, as it is a React-based package, it is recommended to use a Node version that is compatible with your React version.
-
-## API Reference
-The main export of this package is the `useGlowHover` hook. 
-
-| Function | Parameters | Type | Description | Return Type |
-|----------|------------|------|-------------|-------------|
-| useGlowHover | ref | React.RefObject | The reference to the React element you want to apply the glow hover effect to. | Object |
-
-The returned object contains two properties:
-
-| Property | Type | Description |
-|----------|------|-------------|
-| isHovered | Boolean | Indicates whether the element is currently being hovered over. |
-| glowStyles | Object | An object containing the CSS styles for the glow effect. |
-
-## Usage Examples
-
-### Basic Example
-```jsx
-import React, { useRef } from 'react';
-import { useGlowHover } from '@rescui/use-glow-hover';
-
-function MyComponent() {
-  const ref = useRef();
-  const { glowStyles } = useGlowHover(ref);
-
-  return <div ref={ref} style={glowStyles}>Hover over me!</div>;
-}
+3️⃣ Generate docs for a package:
+```bash
+npx ts-node src/index.ts @rescui/use-glow-hover
 ```
 
-In this example, we import the `useGlowHover` hook and apply it to a `div` element. When you hover over the `div`, it will glow.
+This creates:
+```
+docs/@rescui-use-glow-hover-1711625192837.md #versioned
 
-### Advanced Example
-```jsx
-import React, { useRef } from 'react';
-import { useGlowHover } from '@rescui/use-glow-hover';
-
-function MyComponent() {
-  const ref = useRef();
-  const { isHovered, glowStyles } = useGlowHover(ref);
-
-  return (
-    <div ref={ref} style={glowStyles}>
-      Hover over me!
-      {isHovered && <p>I'm glowing!</p>}
-    </div>
-  );
-}
+docs/@rescui-use-glow-hover-latest.md #replace with aliases
 ```
 
-In this advanced example, we also use the `isHovered` property from the `useGlowHover` hook. We display a `p` element with the text "I'm glowing!" when the `div` is being hovered over.
 
-## Additional Notes
-Please note that the `useGlowHover` hook should only be used in functional components due to the nature of React hooks. Also, the hook should be called at the top level of your React function. 
+4️⃣ Use predefined shortcut:
+```bash
+npm run demo
+```
 
-As this hook applies CSS styles, it may override any existing styles on your component. It is recommended to use this hook on components that do not have any existing hover styles. 
+## Sample Doc Generation Output
 
-For performance considerations, as with any other hooks, avoid putting heavy computations or side effects within the hook as it may cause unnecessary re-renders.
+You can see a real generated documentation file under:
+
+`docs/@rescui-use-glow-hover-1743155993228.md`
+
+This file shows the most recently generated Markdown output for demo and review purposes.
+
+## ⚙️ Scripts
+| Script       | Description                                |
+|--------------|--------------------------------------------|
+| `build`      | Compiles TypeScript to `dist/`             |
+| `start`      | Runs compiled output                       |
+| `dev`        | Runs `src/index.ts` directly with `ts-node`|
+| `demo`       | Generates docs for `@rescui/use-glow-hover`|
+| `clean`      | Removes `dist` and generated Markdown      |
+
+---
+
+## 🧱 Extending the Tool
+- Implement test generation in `DocGenerator`
+- Add additional LLM integrations via LangChain
+- Write JSON metadata index of all versions
+- Build GitHub Action for automated doc publishing
+
+
+## 📧 Contact
+
+👤 **R. Berkay Bozkurt**  
+📧 Email: resitberkaybozkurt@gmail.com  
+📂 GitHub: [github.com/rbbozkurt](https://github.com/rbbozkurt)

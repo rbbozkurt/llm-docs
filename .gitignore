@@ -5,6 +5,9 @@ node_modules/
 dist/
 build/
 
+# Output docs
+docs/*.md
+!docs/.gitkeep
 
 # TypeScript
 *.tsbuildinfo
